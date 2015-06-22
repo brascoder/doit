@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: db
+  username: postgres
+  password:
+
+development:
+  <<: *default
+  database: doit_development
+
+test:
+  <<: *default
+  database: doit_test
+
+production:
+  <<: *default
+  database: doit_production
+  username: doit
+  password: <%= ENV['DOIT_DATABASE_PASSWORD'] %>
