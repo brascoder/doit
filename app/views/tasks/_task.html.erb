@@ -1,0 +1,34 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <%= link_to edit_task_path(task) do %>
+      <%= time_ago_in_words(task.created_at) %> ago created
+    <% end %>
+    <%= link_to "x", task_path(task), method: :delete, data: { confirm: "Are you sure?" }, class: "pull-right" %>
+  </div>
+
+  <div class="panel-body">
+    <%= raw(task.content_html) %>
+  </div>
+
+  <div class="panel-footer text-center">
+    <% if task.state == "doing" %>
+      <div class="btn-group btn-group-justified">
+        <%= link_to change_task_path(task, state: "todo"), method: :put, class: "btn btn-info btn-md btn-block" do %>
+          <i class="fa fa-arrow-left"></i>
+        <% end %>
+        <%= link_to change_task_path(task, state: "done"), method: :put, class: "btn btn-info btn-md btn-block" do %>
+          <i class="fa fa-arrow-right"></i>
+        <% end %>
+      </div>
+    <% elsif task.state == "done" %>
+      <%= link_to change_task_path(task, state: "doing"), method: :put, class: "btn btn-info btn-md btn-block" do %>
+        <i class="fa fa-arrow-left"></i>
+      <% end %>
+    <% else %>
+      <%= link_to change_task_path(task, state: "doing"), method: :put, class: "btn btn-info btn-md btn-block" do %>
+        <i class="fa fa-arrow-right"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
